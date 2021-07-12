@@ -9,6 +9,18 @@ import 'package:consumerteamui/store/globalInfo.dart';
 void main() {
   bool isTestMode = false;
 
+  // ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
+  //   // exceptionAsString
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text('发生错误　ohh...')
+  //     ),
+  //     body: Center(
+  //       child: Text('报告错误'),
+  //     )
+  //   );
+  // };
+
   runApp(App(
     key: Key(APP_KEY),
     initialRoute: '/'
