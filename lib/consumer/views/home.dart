@@ -5,9 +5,7 @@ class ConsumerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('consumer home')
-      ),
+      appBar: AppBar(title: Text('consumer home')),
     );
   }
 }

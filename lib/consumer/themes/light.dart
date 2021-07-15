@@ -11,8 +11,7 @@ class ConsumerLightTheme {
 
   static final Color _focusColor = Colors.black.withOpacity(0.12);
 
-  static ThemeData innerthemeData =
-      themeData(colorScheme, _focusColor);
+  static ThemeData innerthemeData = themeData(colorScheme, _focusColor);
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
     return ThemeData(
@@ -58,7 +57,6 @@ class ConsumerLightTheme {
     onSurface: Color(0xFF241E30),
     brightness: Brightness.light,
   );
-
 
   static const _regular = FontWeight.w400;
   static const _medium = FontWeight.w500;

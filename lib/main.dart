@@ -20,6 +20,7 @@ void main() {
   //     )
   //   );
   // };
+  // FlutterError.onError = (FlutterErrorDetails details) => {}
 
   runApp(App(
     key: Key(APP_KEY),
