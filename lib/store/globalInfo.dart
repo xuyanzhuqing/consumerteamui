@@ -4,6 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:consumerteamui/constants.dart';
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
+import 'package:consumerteamui/enum/biz.dart' show Roles;
+
+// 注册路由
+import 'package:consumerteamui/consumer/router.dart' show consumerRoute;
+import 'package:consumerteamui/team/router.dart' show teamRoutes;
+import 'package:consumerteamui/routes/system.dart' show sysRoutes;
 
 const defaultLanguage = Locale('zh');
 
@@ -15,8 +21,10 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
     required this.timeDilation,
     required this.platform,
     required this.isTestMode,
+    required Roles role,
   })  : _textScaleFactor = textScaleFactor,
-        _locale = locale;
+        _locale = locale,
+        _role = role;
 
   final ThemeMode themeMode;
   final double _textScaleFactor;
@@ -24,6 +32,7 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
   final double timeDilation;
   final TargetPlatform platform;
   final bool isTestMode;
+  Roles _role;
 
   // 默认跟随系统字体
   double textScaleFactor(BuildContext context, {bool useSentinel = false}) {
@@ -34,6 +43,24 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
     } else {
       return _textScaleFactor;
     }
+  }
+
+  Map<String, Widget Function(BuildContext)> get routes {
+    Map<String, Widget Function(BuildContext)> map = {};
+    map.addAll(sysRoutes);
+    if (_role == Roles.consumer) {
+      map.addAll(consumerRoute);
+    } else if (_role == Roles.team) {
+      map.addAll(teamRoutes);
+    }
+    return map;
+  }
+
+  Roles get role => _role;
+
+  void setRole (Roles newRole) {
+    _role = newRole;
+    notifyListeners();
   }
 
   Locale get locale => _locale;
@@ -75,6 +102,7 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
     double? timeDilation,
     TargetPlatform? platform,
     bool? isTestMode,
+    Roles? role,
   }) {
     return GlobalInfo(
       themeMode: themeMode ?? this.themeMode,
@@ -83,6 +111,7 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
       timeDilation: timeDilation ?? this.timeDilation,
       platform: platform ?? this.platform,
       isTestMode: isTestMode ?? this.isTestMode,
+      role: role ?? this.role,
     );
   }
 
@@ -94,7 +123,8 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
       locale == other.locale &&
       timeDilation == other.timeDilation &&
       platform == other.platform &&
-      isTestMode == other.isTestMode;
+      isTestMode == other.isTestMode &&
+      role == other.role;
 
   @override
   int get hashCode => hashValues(
@@ -104,6 +134,7 @@ class GlobalInfo with ChangeNotifier, DiagnosticableTreeMixin {
     timeDilation,
     platform,
     isTestMode,
+    role,
   );
 
   // 用于开启dev 调试

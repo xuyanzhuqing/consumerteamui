@@ -1,4 +1,7 @@
+import 'package:consumerteamui/store/globalInfo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:consumerteamui/enum/biz.dart' show Roles;
 
 class Entry extends StatelessWidget {
   @override
@@ -10,8 +13,8 @@ class Entry extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Text(S.of(context).sys_warning),
-                toEntry(context, '我是团长', 'TeamHome'),
-                toEntry(context, '我是消费者', 'ConsumerHome')
+                toEntry(context, Roles.team, '我是团长', 'TeamHome'),
+                toEntry(context, Roles.consumer, '我是消费者', 'ConsumerHome')
               ],
             );
           },
@@ -20,7 +23,7 @@ class Entry extends StatelessWidget {
     },);
   }
 
-  Widget toEntry (BuildContext context, String desc, String route) {
+  Widget toEntry (BuildContext context, Roles roleType, String desc, String route) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
@@ -44,6 +47,10 @@ class Entry extends StatelessWidget {
         ),
       ),
       onTap: () {
+        // 切换身份
+        GlobalInfo globalInfo = Provider.of<GlobalInfo>(context, listen:false);
+        globalInfo.setRole(roleType);
+        print(context.read<GlobalInfo>().routes.keys);
         Navigator.of(context).pushNamed(route);
       },
     );

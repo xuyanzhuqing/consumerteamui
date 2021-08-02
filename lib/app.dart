@@ -8,9 +8,8 @@ import 'generated/l10n.dart';
 import 'package:consumerteamui/consumer/themes/light.dart';
 import 'package:consumerteamui/constants.dart';
 import 'package:consumerteamui/store/globalInfo.dart';
-
-import 'package:consumerteamui/consumer/router.dart' show consumerRoute;
-import 'package:consumerteamui/team/router.dart' show teamRoutes;
+import 'package:consumerteamui/enum/biz.dart' show Roles;
+import 'package:consumerteamui/routes/system.dart' show onGenerateRoute;
 
 class App extends StatelessWidget {
   const App({
@@ -32,7 +31,8 @@ class App extends StatelessWidget {
           timeDilation: 100.0,
           platform: defaultTargetPlatform,
           isTestMode: isTestMode,
-          locale: defaultLanguage
+          locale: defaultLanguage,
+          role: Roles.nope
         )),
       ],
       child: Builder(builder: (context) {
@@ -60,9 +60,8 @@ class App extends StatelessWidget {
             return defaultLanguage;
           },
           supportedLocales: S.delegate.supportedLocales,
-          routes: consumerRoute,
           initialRoute: initialRoute,
-          // onGenerateRoute: onGenerateRoute
+          onGenerateRoute: onGenerateRoute
         );
       })
     );

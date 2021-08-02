@@ -3,6 +3,6 @@ import 'package:consumerteamui/views/entry.dart';
 import 'package:flutter/material.dart';
 
 Map<String, Widget Function(BuildContext)> teamRoutes = {
-  "ConsumerHome": (context) => TeamHome(),
+  "TeamHome": (context) => TeamHome(),
   "/": (context) => Entry()
 };
