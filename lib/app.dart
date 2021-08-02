@@ -5,18 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 
-import 'package:consumerteamui/consumer/views/home.dart';
-import 'package:consumerteamui/team/views/home.dart';
-import 'package:consumerteamui/store/globalInfo.dart';
 import 'package:consumerteamui/consumer/themes/light.dart';
 import 'package:consumerteamui/constants.dart';
+import 'package:consumerteamui/store/globalInfo.dart';
 
-
-Map<String, Widget Function(BuildContext)> routes = {
-  "ConsumerHome": (context) => ConsumerHome(),
-  "TeamHome": (context) => TeamHome(),
-  "/": (context) => AppEntry()
-};
+import 'package:consumerteamui/consumer/router.dart' show consumerRoute;
+import 'package:consumerteamui/team/router.dart' show teamRoutes;
 
 class App extends StatelessWidget {
   const App({
@@ -39,7 +33,7 @@ class App extends StatelessWidget {
           platform: defaultTargetPlatform,
           isTestMode: isTestMode,
           locale: defaultLanguage
-        ))
+        )),
       ],
       child: Builder(builder: (context) {
         return MaterialApp(
@@ -66,61 +60,11 @@ class App extends StatelessWidget {
             return defaultLanguage;
           },
           supportedLocales: S.delegate.supportedLocales,
-          routes: routes,
+          routes: consumerRoute,
           initialRoute: initialRoute,
           // onGenerateRoute: onGenerateRoute
         );
       })
-    );
-  }
-}
-
-class AppEntry extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return Scaffold(
-          body: Builder(builder: (BuildContext context) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Text(S.of(context).sys_warning),
-                toEntry(context, '我是团长', 'TeamHome'),
-                toEntry(context, '我是消费者', 'ConsumerHome')
-              ],
-            );
-          },
-        ),
-      );
-    },);
-  }
-
-  Widget toEntry (BuildContext context, String desc, String route) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        width: double.infinity,
-        height: 100.0,
-        margin: const EdgeInsets.all(10),
-        alignment: Alignment.center,
-        child: Text(desc, style: TextStyle(
-          color: Colors.white
-        ),),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Theme.of(context).colorScheme.primaryVariant,
-          boxShadow: [ //卡片阴影
-            BoxShadow(
-                color: Colors.black54,
-                offset: Offset(2.0, 2.0),
-                blurRadius: 4.0
-            )
-          ]
-        ),
-      ),
-      onTap: () {
-        Navigator.of(context).pushNamed(route);
-      },
     );
   }
 }

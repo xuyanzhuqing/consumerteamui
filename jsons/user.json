@@ -1,8 +1,12 @@
 {
-  "id": "123",
-  "caseId?": "123",
-  "startDate?": "2020-08-08",
-  "endDate?": "2020-10-10",
-  "placementDescription?": "Description string",
-  "name": "michael"
+  "uuid": "123",
+  "type": "@enum:consumer,team",
+  "phone?": "17721338554",
+  "firstName?": "michael",
+  "lastName?": "xu",
+  "sex?": "@enum:man,woman",
+  "email?": "962275976@qq.com",
+  "address?": "",
+  "postcode?": "725251",
+  "createTime?": "@datetime:2020-02-15T15:47:51.742Z"
 }
