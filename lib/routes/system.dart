@@ -1,12 +1,14 @@
 // 系统路由，404，500
 import 'package:consumerteamui/store/globalInfo.dart';
-import 'package:consumerteamui/views/entry.dart';
-import 'package:consumerteamui/views/not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:consumerteamui/views/entry.dart';
+import 'package:consumerteamui/views/not_found.dart';
+import 'package:consumerteamui/views/register.dart';
 
 Map<String, Widget Function(BuildContext)> sysRoutes = {
-  "/": (context) => Entry()
+  "/": (context) => Entry(),
+  "register": (context) => Register(),
 };
 
 // 路由拦截

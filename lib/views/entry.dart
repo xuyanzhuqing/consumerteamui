@@ -2,24 +2,26 @@ import 'package:consumerteamui/store/globalInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:consumerteamui/enum/biz.dart' show Roles;
-
+import 'package:consumerteamui/views/login.dart';
 class Entry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      return Scaffold(
-          body: Builder(builder: (BuildContext context) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Text(S.of(context).sys_warning),
-                toEntry(context, Roles.team, '我是团长', 'TeamHome'),
-                toEntry(context, Roles.consumer, '我是消费者', 'ConsumerHome')
-              ],
-            );
-          },
-        ),
-      );
+      // return Scaffold(
+      //     body: Builder(builder: (BuildContext context) {
+      //       return Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+
+      //           // Text(S.of(context).sys_warning),
+      //           toEntry(context, Roles.team, '我是团长', 'TeamHome'),
+      //           toEntry(context, Roles.consumer, '我是消费者', 'ConsumerHome')
+      //         ],
+      //       );
+      //     },
+      //   ),
+      // );
+      return Login();
     },);
   }
 

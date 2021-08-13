@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class Login extends StatefulWidget {
+class Register extends StatefulWidget {
   final title = '测试 checkbox';
 
   @override
-  State<StatefulWidget> createState () => _Login();
+  State<StatefulWidget> createState () => _Register();
 }
 
-class _Login extends State<Login> {
+class _Register extends State<Register> {
 
   String _username = 'admin';
   String _userpass = 'admin123';
@@ -40,6 +40,9 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: null
+      ),
       body: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0), child: 
         Form(
           autovalidateMode: AutovalidateMode.always,
@@ -50,7 +53,7 @@ class _Login extends State<Login> {
             children: [
             Padding(
               padding: EdgeInsets.all(10.0),
-              child: Center(child: Text('登陆'),),
+              child: Center(child: Text('注册'),),
             ),
             TextFormField(
               controller: _usernameContontroller,
@@ -83,19 +86,10 @@ class _Login extends State<Login> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(child: Text('登陆'), onPressed: () {
+                  child: ElevatedButton(child: Text('注册'), onPressed: () {
                     if ((_formKey.currentState as FormState).validate()) {
                       print('验证通过');
                     }
-                  },),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(child: Text('注册'), onPressed: () {
-                    Navigator.of(context).pushNamed('register');
                   },),
                 )
               ],

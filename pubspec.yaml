@@ -35,6 +35,7 @@ dependencies:
   animations: ^2.0.1
   json_annotation: ^2.0.0
   shared_preferences: ^2.0.6
+  form_field_validator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
