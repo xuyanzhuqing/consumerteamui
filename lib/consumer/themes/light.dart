@@ -43,7 +43,7 @@ class ConsumerLightTheme {
   }
 
   static const ColorScheme colorScheme = ColorScheme(
-    primary: Color(0xFFB93C5D),
+    primary: Color(0xFF00A378),
     primaryVariant: Color(0xFF117378),
     secondary: Color(0xFFEFF3F3),
     secondaryVariant: Color(0xFFFAFBFB),

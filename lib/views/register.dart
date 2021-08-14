@@ -1,103 +1,50 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:shake_animation_widget/shake_animation_widget.dart';
+import 'package:consumerteamui/components/my_form.dart';
+import 'package:consumerteamui/components/my_form_item.dart';
 
 class Register extends StatefulWidget {
-  final title = '测试 checkbox';
-
   @override
-  State<StatefulWidget> createState () => _Register();
+  _Register createState() => _Register();
 }
-
 class _Register extends State<Register> {
+  Object value = {
+    "name": "michael",
+    "age": "18"
+  };
 
-  String _username = 'admin';
-  String _userpass = 'admin123';
-
-  TextEditingController _usernameContontroller = new TextEditingController();
-  TextEditingController _userpassContontroller = new TextEditingController();
-
-  MultiValidator _userpassValidator = MultiValidator([
+  MultiValidator _nameValidator = MultiValidator([
     RequiredValidator(errorText: '用户密码不能为空'),
     MinLengthValidator(8, errorText: '最短6位'),
     MaxLengthValidator(16, errorText: '最长16'),
   ]);
 
-  GlobalKey _formKey = new GlobalKey<FormState>();
-
   @override
-  void initState () {
-    // 设置默认值
-    _usernameContontroller.text = _username;
-    _userpassContontroller.text = _userpass;
+  Widget build(BuildContext context) {
+    List<MyFormItem> items = [
+      MyFormItem(prop: "name", label: "姓名", which: Which.char, rules: _nameValidator),
+      MyFormItem(prop: "age", label: "年龄", which: Which.char),
+    ];
 
-    _usernameContontroller.addListener(() {
-      print(_usernameContontroller.text);
+    return MyForm(
+      title: "注册",
+      value: value,
+      items: items,
+      onChange: onChange,
+      onSubmit: onSubmit
+    );
+  }
+
+  void onChange (Object newVal) {
+    setState(() {
+      this.value = newVal;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: null
-      ),
-      body: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0), child: 
-        Form(
-          autovalidateMode: AutovalidateMode.always,
-          key: _formKey,
-          child: Flex(
-            direction: Axis.vertical,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Center(child: Text('注册'),),
-            ),
-            TextFormField(
-              controller: _usernameContontroller,
-              autofocus: true,
-              decoration: InputDecoration(
-                labelText: '用户名',
-                hintText: '请输入用户名',
-                prefix: Icon(Icons.person)
-              ),
-              validator: (String? v) {
-                RegExp name = new RegExp(r"^[a-zA-Z]+$");
-
-                if (name.hasMatch(v?? '')) {
-                  return null;
-                } else {
-                  return '仅允许输入大小写字母';
-                }
-              },
-            ),
-            TextFormField(
-              controller: _userpassContontroller,
-              decoration: InputDecoration(
-                labelText: '用户密码',
-                hintText: '请输入密码',
-                prefix: Icon(Icons.lock)
-              ),
-              obscureText: false,
-              validator: _userpassValidator,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(child: Text('注册'), onPressed: () {
-                    if ((_formKey.currentState as FormState).validate()) {
-                      print('验证通过');
-                    }
-                  },),
-                )
-              ],
-            )
-          ],
-          )
-        )
-      )
-    );
-  }
+  void onSubmit (Object obj) {}
 }
