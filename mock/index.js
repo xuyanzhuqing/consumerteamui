@@ -16,6 +16,8 @@ app.all('*',function (req,res,next) {
   next()
 })
 
+app.use('/', require('./sys/index.js'))
+
 request.forEach(function (item) {
   app.use(item.router, require('./request/' + item.file))
 })
