@@ -11,8 +11,8 @@ class _Login extends State<Login> {
   GlobalKey formKey= new GlobalKey<FormState>();
 
   Map<String, dynamic> _model = {
-    "user": "cungen666",
-    "password": "cungen666"
+    "user": "",
+    "password": ""
   };
 
   @override
@@ -24,12 +24,18 @@ class _Login extends State<Login> {
         initalValue: _model['user'],
         which: Which.char,
         rules: MultiValidator([
-          RequiredValidator(errorText: '用户密码不能为空'),
-          MaxLengthValidator(16, errorText: '最长16'),
+          RequiredValidator(errorText: '用户名/手机号不能为空'),
         ])
       ),
-      MyFormItem<String>(prop: "password", initalValue: _model['password'] as String, label: "密码", which: Which.char),
-      MyFormItem(prop: "btn", label: "取消", which: Which.button, buttonStyle: MyButtonStyle.outline),
+      MyFormItem<String>(
+          prop: "password",
+          initalValue: _model['password'] as String,
+          label: "密码",
+          which: Which.char,
+          rules: MultiValidator([
+            RequiredValidator(errorText: '密码不能为空'),
+          ])
+      ),
     ];
 
     return MyForm(
@@ -45,6 +51,7 @@ class _Login extends State<Login> {
   }
 
   void onFiledChange (String key, dynamic value) {
+    print('------------');
     print(key);
     print(value);
   }

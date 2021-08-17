@@ -39,10 +39,10 @@ class MyForm extends StatefulWidget {
 
   @override
   bool operator == (Object other) => identical(this, other)
-    || other is MyForm && title == other.title && submitLabel == other.submitLabel && cancelLabel == other.cancelLabel;
+    || other is MyForm && title == other.title && submitLabel == other.submitLabel && cancelLabel == other.cancelLabel && items == other.items;
 
   @override
-  int get hashCode => title.hashCode ^ submitLabel.hashCode ^ cancelLabel.hashCode;
+  int get hashCode => title.hashCode ^ submitLabel.hashCode ^ cancelLabel.hashCode ^ items.hashCode;
 }
 
 class _MyForm extends State<MyForm> {
@@ -62,6 +62,9 @@ class _MyForm extends State<MyForm> {
         }
       )
     );
+
+    res.add(SizedBox(height: 10,));
+
     res.add(
       MyFormItem.buildButton(
         widget.cancelLabel,
@@ -73,10 +76,6 @@ class _MyForm extends State<MyForm> {
       )
     );
 
-    // sysBtn.forEach((element) {
-    //   list.add(SizedBox(height: 10));
-    //   list.add(element);
-    // });
     return res;
   }
 
@@ -119,6 +118,8 @@ class _MyForm extends State<MyForm> {
         MyFormItemInner item = myFormItemInner[prop]!.copyWith(
           myFormItem: element
         );
+        print(element.label);
+        print(item.myFormItem.label);
         myFormItemInner[prop] = item;
         list.add(buildCharWidget(item));
       } else if (which == Which.button) {

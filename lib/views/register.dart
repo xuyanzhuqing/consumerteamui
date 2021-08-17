@@ -12,19 +12,17 @@ class Register extends StatefulWidget {
 class _Register extends State<Register> {
   GlobalKey formKey= new GlobalKey<FormState>();
 
-  List<MyFormItem> items = [
-    MyFormItem<String>(prop: "name", initalValue: "", label: "姓名", which: Which.char, rules: MultiValidator([
-      RequiredValidator(errorText: '用户密码不能为空'),
-      MinLengthValidator(8, errorText: '最短6位'),
-      MaxLengthValidator(16, errorText: '最长16'),
-    ])),
-    MyFormItem<String>(prop: "age", initalValue: '18', label: "年龄", which: Which.char),
-    // MyFormItem(prop: "btn", label: "取消", which: Which.button, buttonStyle: MyButtonStyle.outline),
-  ];
-
   @override
   Widget build(BuildContext context) {
-
+    List<MyFormItem> items = [
+      MyFormItem<String>(prop: "name", initalValue: "", label: "姓名", which: Which.char, rules: MultiValidator([
+        RequiredValidator(errorText: '用户密码不能为空'),
+        MinLengthValidator(8, errorText: '最短6位'),
+        MaxLengthValidator(16, errorText: '最长16'),
+      ])),
+      MyFormItem<String>(prop: "age", initalValue: '18', label: "年龄", which: Which.char),
+      // MyFormItem(prop: "btn", label: "取消", which: Which.button, buttonStyle: MyButtonStyle.outline),
+    ];
     return MyForm(
       formKey: formKey,
       title: "注册",
