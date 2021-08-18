@@ -61,6 +61,7 @@ class _Login extends State<Login> {
   }
 
   void onCancel (model) {
-    Navigator.of(context).pushNamed('register');
+    // Navigator.of(context).pushNamed('register');
+    Navigator.of(context).pushNamed('consumerHome');
   }
 }
