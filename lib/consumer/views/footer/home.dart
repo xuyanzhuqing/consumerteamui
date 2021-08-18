@@ -96,9 +96,12 @@ class ItemBotton extends StatelessWidget {
             size: 40,
             color: Colors.brown,
           ),
-          Text(
-            Txt,
-            style: TextStyle(color: Colors.brown, fontSize: 14),
+          Container(
+            padding: EdgeInsets.only(top: 5),
+            child: Text(
+              Txt,
+              style: TextStyle(color: Colors.brown, fontSize: 14),
+            ),
           )
         ],
       ),
