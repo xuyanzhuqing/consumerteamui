@@ -20,8 +20,10 @@ class _HomepageState extends State<Homepage> {
     return Container(
       padding: const EdgeInsets.only(top: 0, left: 4, right: 4, bottom: 8),
       child: Column(children: <Widget>[
+        Notice(),
         UserCon(),
-        HeadCon(),
+        // HeadCon(),
+        ListContent(),
       ]),
     );
   }
@@ -48,22 +50,22 @@ class UserCon extends StatelessWidget {
             ItemBotton(
               Txt: "提货通知",
               IconData: IconData(0xe61b, fontFamily: 'Albb'),
-              goUrl: "takePage",
+              goUrl: "TakePage",
             ),
             ItemBotton(
               Txt: "待收货订单",
               IconData: IconData(0xe637, fontFamily: 'Albb'),
-              goUrl: "receivingPage",
+              goUrl: "ReceivingPage",
             ),
             ItemBotton(
               Txt: "待发货订单",
               IconData: IconData(0xe633, fontFamily: 'Albb'),
-              goUrl: "sendoutPage",
+              goUrl: "SendoutPage",
             ),
             ItemBotton(
               Txt: "待支付订单",
               IconData: IconData(0xe617, fontFamily: 'Albb'),
-              goUrl: "paidPage",
+              goUrl: "PaidPage",
             ),
           ]),
     );
@@ -93,7 +95,7 @@ class ItemBotton extends StatelessWidget {
         children: [
           Icon(
             IconData,
-            size: 40,
+            size: 35,
             color: Colors.brown,
           ),
           Container(
@@ -128,24 +130,85 @@ class HeadCon extends StatelessWidget {
             ItemBotton(
               Txt: "进行中",
               IconData: IconData(0xe63f, fontFamily: 'Albb'),
-              goUrl: "takepage",
+              goUrl: "Takepage",
             ),
             ItemBotton(
               Txt: "待支付",
               IconData: IconData(0xe617, fontFamily: 'Albb'),
-              goUrl: "receivingpage",
+              goUrl: "Receivingpage",
             ),
             ItemBotton(
               Txt: "历史记录",
               IconData: IconData(0xe617, fontFamily: 'Albb'),
-              goUrl: "sendoutpage",
+              goUrl: "Sendoutpage",
             ),
             ItemBotton(
               Txt: "开新团",
               IconData: IconData(0xe649, fontFamily: 'Albb'),
-              goUrl: "paidpage",
+              goUrl: "Paidpage",
             ),
           ]),
+    );
+  }
+}
+
+class Notice extends StatelessWidget {
+  const Notice({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      child: new InkWell(
+          onTap: () {
+            print("NoticeNoticeNotice");
+          },
+          child: Row(
+            children: [
+              Icon(
+                IconData(0xe61b, fontFamily: 'Albb'),
+                size: 25,
+                color: Colors.brown,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 5),
+                child: Text(
+                  "通知消息通知消息通知消息通知消息通知消息通知消息",
+                  style: TextStyle(color: Colors.brown, fontSize: 14),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
+class ListContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Container(
+          color: Colors.blue,
+          height: 50,
+          width: 406,
+        ),
+      ],
+    );
+  }
+}
+
+class LeftView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        ListTile(
+          title: Text("你好这是一个列表"),
+        ),
+        ListTile(
+          title: Text("你好这是一个列表"),
+        ),
+      ],
     );
   }
 }
