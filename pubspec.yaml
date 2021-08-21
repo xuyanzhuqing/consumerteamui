@@ -97,5 +97,8 @@ flutter:
     - family: iconfont #指定一个字体名
       fonts:
         - asset: assets/fonts/iconfont/iconfont.ttf
+    - family: Albb #指定一个字体名
+      fonts:
+        - asset: lib/assets/icons/iconfont.ttf
 flutter_intl:
   enabled: true
