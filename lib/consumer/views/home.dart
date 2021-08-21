@@ -35,7 +35,7 @@ class _ConsumerHomeState extends State<ConsumerHome> {
     var screenSize;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.0), //设置高度
+        preferredSize: Size.fromHeight(0.0), //设置高度
         child: AppBar(
           automaticallyImplyLeading: true,
           elevation: 2.0,

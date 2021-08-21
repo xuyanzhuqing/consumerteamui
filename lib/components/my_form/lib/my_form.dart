@@ -22,27 +22,32 @@ class MyForm extends StatefulWidget {
     required this.items,
     required this.onSubmit,
     required this.formKey,
+    this.tailBtns = const [],
     this.onCancel,
     this.onFiledChange,
     this.submitLabel = "提交",
     this.cancelLabel = "取消",
+    this.hasCancelBtn = true
   }): super(key: key);
 
   final String title;
   final String submitLabel;
   final String cancelLabel;
+  final bool hasCancelBtn;
   final GlobalKey formKey;
 
   final List<MyFormItem> items;
+  final List<MyFormItem> tailBtns;
+
   @override
   State<StatefulWidget> createState() => _MyForm();
 
   @override
   bool operator == (Object other) => identical(this, other)
-    || other is MyForm && title == other.title && submitLabel == other.submitLabel && cancelLabel == other.cancelLabel && items == other.items;
+    || other is MyForm && title == other.title && submitLabel == other.submitLabel && cancelLabel == other.cancelLabel && hasCancelBtn == other.hasCancelBtn && items == other.items && tailBtns == other.tailBtns;
 
   @override
-  int get hashCode => title.hashCode ^ submitLabel.hashCode ^ cancelLabel.hashCode ^ items.hashCode;
+  int get hashCode => title.hashCode ^ submitLabel.hashCode ^ cancelLabel.hashCode ^ hasCancelBtn.hashCode ^ items.hashCode ^ tailBtns.hashCode;
 }
 
 class _MyForm extends State<MyForm> {
@@ -63,18 +68,19 @@ class _MyForm extends State<MyForm> {
       )
     );
 
-    res.add(SizedBox(height: 10,));
-
-    res.add(
-      MyFormItem.buildButton(
-        widget.cancelLabel,
-        () {
-          hindKeyBoarder();
-          widget.onCancel!(model);
-        },
-        buttonStyle: MyButtonStyle.outline
-      )
-    );
+    if (widget.hasCancelBtn) {
+      res.add(SizedBox(height: 10,));
+      res.add(
+        MyFormItem.buildButton(
+          widget.cancelLabel,
+          () {
+            hindKeyBoarder();
+            widget.onCancel!(model);
+          },
+          buttonStyle: MyButtonStyle.outline
+        )
+      );
+    }
 
     return res;
   }
@@ -118,13 +124,12 @@ class _MyForm extends State<MyForm> {
         MyFormItemInner item = myFormItemInner[prop]!.copyWith(
           myFormItem: element
         );
-        print(element.label);
-        print(item.myFormItem.label);
         myFormItemInner[prop] = item;
         list.add(buildCharWidget(item));
       } else if (which == Which.button) {
         list.add(MyFormItem.buildButton(element.label??"", () {}, buttonStyle: element.buttonStyle));
-      } else {
+      } else if (which == Which.select){
+        list.add(buildSwitchWidget(element));
         // 自定义组建
       }
       double gap = element.gap;
@@ -134,6 +139,12 @@ class _MyForm extends State<MyForm> {
     // 确认，取消
     list.addAll(addSysButton());
 
+    // 自定义按钮
+    widget.tailBtns.forEach((element) {
+      double gap = element.gap;
+      list.add(SizedBox(height: gap));
+      list.add(MyFormItem.buildButton(element.label??"", () {}, buttonStyle: element.buttonStyle));
+    });
     return list;
   }
 
@@ -200,6 +211,15 @@ class _MyForm extends State<MyForm> {
           ),
         );
       },
+    );
+  }
+
+  Switch buildSwitchWidget(MyFormItem item) {
+    return Switch(
+      value: item.initalValue,
+      onChanged: (value) {
+        onFiledChange(item.prop, value);
+      }
     );
   }
 
