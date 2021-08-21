@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-import "package:consumerteamui/consumer/views/footer/home.dart";
-import "package:consumerteamui/consumer/views/footer/info.dart";
-import "package:consumerteamui/consumer/views/footer/shopping.dart";
-import "package:consumerteamui/consumer/views/footer/product.dart";
+import 'package:consumerteamui/consumer/views/home/home.dart';
+import 'package:consumerteamui/consumer/views/info/info.dart';
+import 'package:consumerteamui/consumer/views/shopping/shopping.dart';
+import 'package:consumerteamui/consumer/views/product/product.dart';
 
 class ConsumerHome extends StatefulWidget {
   ConsumerHome({Key? key}) : super(key: key);
