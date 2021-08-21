@@ -32,14 +32,21 @@ class _ConsumerHomeState extends State<ConsumerHome> {
   ];
   @override
   Widget build(BuildContext context) {
+    var screenSize;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0), //设置高度
+        child: AppBar(
+          automaticallyImplyLeading: true,
+          elevation: 2.0,
+          backgroundColor: Theme.of(context).colorScheme.primaryVariant,
+          title: Text(""),
+        ),
       ),
       body: PageList[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        fixedColor: Color(0xFFFF0000),
+        fixedColor: Theme.of(context).colorScheme.primaryVariant,
         onTap: (int index) {
           setState(() {
             currentIndex = index;
