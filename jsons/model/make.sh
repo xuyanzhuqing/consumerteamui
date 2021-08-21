@@ -18,6 +18,8 @@ then
     echo ""
     echo "支持数据库导出表 csv 文件转成 js_to_model 需要的格式"
     echo "参考： https://pub.dev/packages/json_to_model#examples"
+
+    sleep 5s
     exit 0
 elif [[ $1 = "--file" ]] || [[ $1 = "-f" ]]
 then
@@ -67,7 +69,7 @@ do
   if [[ $type =~ "datetime" ]];then res3=${defaults["datetime"]} ;fi
   if [[ $type =~ "varchar" ]];then res3=${defaults["string"]} ;fi
 
-  res=${res1}${res2}${res3}","
+  res="${res1}${res2}${res3}"","
   index=$[index+1]
 
   # 去除表头
@@ -82,7 +84,7 @@ lines[-1]=$tail
 
 for var in ${lines[@]}
   do
-    echo $var >> ${targetPath}
+    echo "  $var" >> ${targetPath}
   done
 
 # 输出到文件
@@ -99,7 +101,6 @@ do
   sleep 0.1
   b=#$b
 done
-echo
 
 # 生成 dart 对象
 read -r -p "是否继续更新 dart 类，或稍后手动更新? [Y/n] " input
