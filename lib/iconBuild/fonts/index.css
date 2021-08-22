@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "autoicons";
+  src: url("autoicons.ttf?t=1629282872126"); /* IE9*/
+  src: /**
+  *url("/autoicons.eot?t=1629282872126#iefix") format("embedded-opentype"), // IE6-IE8
+  *url("/autoicons.woff?t=1629282872126") format("woff"),
+  */
+  url("autoicons.ttf?t=1629282872126") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url("autoicons.svg?t=1629282872126#autoicons") format("svg"); /* iOS 4.1- */
+}
+
+[class^="icont-"], [class*=" icont-"] {
+  font-family: 'autoicons' !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+      .icont-back:before { 
+        content: "\ea01";
+      }
+      
+      .icont-fd:before { 
+        content: "\ea02";
+      }
+      
+      .icont-ld:before { 
+        content: "\ea03";
+      }
+      

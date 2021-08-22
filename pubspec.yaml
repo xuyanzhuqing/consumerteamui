@@ -85,6 +85,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
+    - family: autoicons
+      fonts:
+        - asset: lib/iconBuild/fonts/autoicons.ttf
     - family: SourceHanSans
       fonts:
         - asset: assets/fonts/source-han-sans/CN/SourceHanSansCN-Regular.otf
