@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:consumerteamui/iconBuild/fonts/autoicons.dart';
+import 'package:consumerteamui/font/autoicons.dart';
 
 class TeamHome extends StatelessWidget {
   @override
@@ -18,15 +18,60 @@ class TeamHome extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-        child: renderSearchInput()
+        child: Column(
+          children: [
+            renderSearchInput(),
+            renderCheckboxTypes(),
+            renderBody(),
+          ],
+        )
       )
     );
   }
-  Widget renderCheckboxTypes () {
-    return new Row(
+  Widget renderBody() {
+    return Row(
       children: [
-        CheckboxListTile(value: true, title: Text(''), onChanged: (bool){})
+        SizedBox(
+          width: 100,
+          height: 80,
+          child: Image.network(
+            'https://img2.baidu.com/it/u=2565461193,1307648114&fm=26&fmt=auto&gp=0.jpg',
+            fit: BoxFit.fill,
+            )
+        ),
+        Expanded(child: Container(
+            decoration: BoxDecoration(color: Colors.red),
+            child: Text('111'),
+          )
+        )
       ],
+    );
+  }
+  Widget renderCheckboxTypes () {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 0) ,
+      child: Row(
+        children: <Widget>[
+            Checkbox(value: true, onChanged: (bool){}),
+            Baseline(
+              baseline: 10,
+              baselineType: TextBaseline.alphabetic,
+              child: Text('团长处提货'),
+            ),
+            Checkbox(value: true, onChanged: (bool){}),
+            Baseline(
+              baseline: 10,
+              baselineType: TextBaseline.alphabetic,
+              child: Text('门店直送'),
+            ),
+            Checkbox(value: true, onChanged: (bool){}),
+            Baseline(
+              baseline: 10,
+              baselineType: TextBaseline.alphabetic,
+              child: Text('到店自取'),
+            ),
+        ]
+      )
     );
   }
   Widget renderSearchInput () {

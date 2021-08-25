@@ -1,4 +1,3 @@
-const OptionKeys = require("./options").keys;
 const Convertor = require("./convertor/convertor");
 
 module.exports = function generate(options) {

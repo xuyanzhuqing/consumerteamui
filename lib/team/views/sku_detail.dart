@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:consumerteamui/iconBuild/fonts/autoicons.dart';
+import 'package:consumerteamui/font/autoicons.dart';
 
 class SkuDetail extends StatelessWidget {
   @override

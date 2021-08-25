@@ -87,7 +87,7 @@ flutter:
   fonts:
     - family: autoicons
       fonts:
-        - asset: lib/iconBuild/fonts/autoicons.ttf
+        - asset: iconBuild/fonts/autoicons.ttf
     - family: SourceHanSans
       fonts:
         - asset: assets/fonts/source-han-sans/CN/SourceHanSansCN-Regular.otf

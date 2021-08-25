@@ -162,7 +162,7 @@ const createHTML = (options) =>
     const filename = Name.toLine(fontname);
     const className = Name.titleCase(Name.toHump(fontname));
     
-    const outDir = path.join(process.cwd(), options[OptionKeys.output]);
+    const outDir = options[OptionKeys.dartOutput];
     const dartFilePath = path.join(outDir, filename+".dart")
     return {fontname, filename, className, outDir, dartFilePath}
   }
