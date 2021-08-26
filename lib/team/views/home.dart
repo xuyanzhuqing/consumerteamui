@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:consumerteamui/font/autoicons.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class TeamHome extends StatelessWidget {
   @override
@@ -16,19 +17,41 @@ class TeamHome extends StatelessWidget {
           onPressed: () {},
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            renderSearchInput(),
-            renderCheckboxTypes(),
-            renderBody(),
-          ],
-        )
-      )
+      body: renderNestedScrollView()
     );
   }
-  Widget renderBody() {
+
+  Widget renderNestedScrollView() {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[SliverAppBar(
+          pinned: true, // 头部是否固定
+          toolbarHeight: 232,
+          // expandedHeight: 232,
+          flexibleSpace: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(color: Colors.white),
+            child: Column(
+              children: [
+                renderSearchInput(),
+                renderCheckboxTypes(),
+                renderConditions(),
+              ],
+            ),
+          )
+        )];
+      },
+      body: new ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 10,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return renderMenuItem(index);
+        },
+      ),
+    );
+  }
+
+  Widget renderConditions() {
     return Row(
       children: [
         SizedBox(
@@ -37,14 +60,93 @@ class TeamHome extends StatelessWidget {
           child: Image.network(
             'https://img2.baidu.com/it/u=2565461193,1307648114&fm=26&fmt=auto&gp=0.jpg',
             fit: BoxFit.fill,
-            )
+          )
         ),
-        Expanded(child: Container(
-            decoration: BoxDecoration(color: Colors.red),
-            child: Text('111'),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+            child: renderBranchStoreSelect(),
           )
         )
       ],
+    );
+  }
+  Widget renderMenuItem(index) {
+    return Card(
+      child: new Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.network('https://hbimg.huabanimg.com/cccaacd4138204a23fb036d2fc09ab9995381d39a695d-CfgljG_fw236/format/webp',
+                width: 50, height: 50
+                ),
+                Text("${index}辣小龙虾（大）"),
+                Text('\$280')
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('规格: 800g, 2-3人食用', style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('可开团时间：2021-8-1  -   2021-12-21', style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('送货方式： 送至团长处', style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('成团额：500\$', style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('运费：1000\$ 免费配送，低于1000\$支付15\$', style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('送准备时间：24小时', style: TextStyle(fontSize: 12)),
+                        ),
+                      ],
+                    ),
+                  )
+                ),
+                Container(
+                  height: 100,
+                  alignment: Alignment.bottomCenter,
+                  child: Image.network('https://hbimg.huabanimg.com/8e7b67af1932f2a33753d159f9648a028be7fe9c30eb-GYkVNG_fw236/format/webp',
+                   width: 50, height: 50, fit: BoxFit.fill,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  Widget renderBranchStoreSelect() {
+    return DropdownButton(
+      value: '请选择分店名称',
+       underline: Container(height: 0),
+      items: [
+        DropdownMenuItem(child: Text('请选择分店名称'),value: '请选择分店名称'),
+        DropdownMenuItem(child: Text('语文'),value: '语文'),
+        DropdownMenuItem(child: Text('数学'),value: '数学'),
+        DropdownMenuItem(child: Text('英语'),value: '英语'),
+      ],
+      onChanged: (value){
+      },
     );
   }
   Widget renderCheckboxTypes () {
@@ -54,19 +156,19 @@ class TeamHome extends StatelessWidget {
         children: <Widget>[
             Checkbox(value: true, onChanged: (bool){}),
             Baseline(
-              baseline: 10,
+              baseline: 11,
               baselineType: TextBaseline.alphabetic,
               child: Text('团长处提货'),
             ),
             Checkbox(value: true, onChanged: (bool){}),
             Baseline(
-              baseline: 10,
+              baseline: 11,
               baselineType: TextBaseline.alphabetic,
               child: Text('门店直送'),
             ),
             Checkbox(value: true, onChanged: (bool){}),
             Baseline(
-              baseline: 10,
+              baseline: 11,
               baselineType: TextBaseline.alphabetic,
               child: Text('到店自取'),
             ),
@@ -80,7 +182,7 @@ class TeamHome extends StatelessWidget {
         maxHeight: 34,
       ),
       child: TextField(
-        autofocus: true,
+        autofocus: false,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
