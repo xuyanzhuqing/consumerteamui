@@ -10,5 +10,7 @@ class Autoicons {
       IconData(0xea02, fontFamily: _family);
       static const IconData ld =
       IconData(0xea03, fontFamily: _family);
+      static const IconData shop =
+      IconData(0xea04, fontFamily: _family);
 
 }

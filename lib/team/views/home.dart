@@ -13,21 +13,21 @@ class TeamHome extends StatelessWidget {
         title: new Text("开团", style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF02A7F0),
         leading: new IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white,),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {},
         ),
       ),
-      body: renderNestedScrollView()
+      body: renderNestedScrollView(context)
     );
   }
 
-  Widget renderNestedScrollView() {
+  Widget renderNestedScrollView(context) {
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[SliverAppBar(
           pinned: true, // 头部是否固定
           toolbarHeight: 232,
-          // expandedHeight: 232,
+          automaticallyImplyLeading: false, // 隐藏返回图标
           flexibleSpace: Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(color: Colors.white),
@@ -45,7 +45,7 @@ class TeamHome extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemCount: 10,
         itemBuilder: (BuildContext ctxt, int index) {
-          return renderMenuItem(index);
+          return renderMenuItem(context, index);
         },
       ),
     );
@@ -71,68 +71,77 @@ class TeamHome extends StatelessWidget {
       ],
     );
   }
-  Widget renderMenuItem(index) {
+  Widget renderMenuItem(context, index) {
     return Card(
       child: new Container(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.network('https://hbimg.huabanimg.com/cccaacd4138204a23fb036d2fc09ab9995381d39a695d-CfgljG_fw236/format/webp',
-                width: 50, height: 50
-                ),
-                Text("${index}辣小龙虾（大）"),
-                Text('\$280')
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('规格: 800g, 2-3人食用', style: TextStyle(fontSize: 12)),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('可开团时间：2021-8-1  -   2021-12-21', style: TextStyle(fontSize: 12)),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('送货方式： 送至团长处', style: TextStyle(fontSize: 12)),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('成团额：500\$', style: TextStyle(fontSize: 12)),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('运费：1000\$ 免费配送，低于1000\$支付15\$', style: TextStyle(fontSize: 12)),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('送准备时间：24小时', style: TextStyle(fontSize: 12)),
-                        ),
-                      ],
-                    ),
-                  )
-                ),
-                Container(
-                  height: 100,
-                  alignment: Alignment.bottomCenter,
-                  child: Image.network('https://hbimg.huabanimg.com/8e7b67af1932f2a33753d159f9648a028be7fe9c30eb-GYkVNG_fw236/format/webp',
-                   width: 50, height: 50, fit: BoxFit.fill,
-                  ),
-                )
-              ],
-            )
+            renderMenuTitle(context, index),
+            renderMenuBody()
           ],
         ),
       ),
+    );
+  }
+  Widget renderMenuTitle(context, index) {
+    return GestureDetector(
+      onTap: () => {
+        Navigator.pushNamed(context, 'SkuDetail')
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.network('https://hbimg.huabanimg.com/cccaacd4138204a23fb036d2fc09ab9995381d39a695d-CfgljG_fw236/format/webp',
+          width: 50, height: 50
+          ),
+          Text("${index}辣小龙虾（大）"),
+          Text('\$280')
+        ],
+      ),
+    );
+  }
+  Widget renderMenuBody() {
+    return Row(
+        children: [
+          Expanded(
+            child: Container(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('规格: 800g, 2-3人食用', style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('可开团时间：2021-8-1  -   2021-12-21', style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('送货方式： 送至团长处', style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('成团额：500\$', style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('运费：1000\$ 免费配送，低于1000\$支付15\$', style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('送准备时间：24小时', style: TextStyle(fontSize: 12)),
+                  ),
+                ],
+              ),
+            )
+          ),
+          Container(
+            height: 100,
+            alignment: Alignment.bottomCenter,
+            child: Icon(Autoicons.shop, color: Colors.red, size: 35),
+          )
+        ],
     );
   }
   Widget renderBranchStoreSelect() {
