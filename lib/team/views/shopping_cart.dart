@@ -97,7 +97,7 @@ class ShoppingCart extends StatelessWidget {
     var skuIcon = Container(
       width: 80,
       height: 60,
-      child: Image.network('https://hbimg.huabanimg.com/f10389ce0674a8e336842a8b6468dd95fd7d4c101cd66d-6q1bs3_fw236/format/webp', fit: BoxFit.fill),
+      child: Image.asset('/image/taocan.png', fit: BoxFit.fill),
     );
     var skuName = Expanded(
       child: Container(
@@ -125,7 +125,7 @@ class ShoppingCart extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.network('https://hbimg.huabanimg.com/cccaacd4138204a23fb036d2fc09ab9995381d39a695d-CfgljG_fw236/format/webp',
+        Image.asset('/image/xia.png',
           width: 50, height: 50
           ),
         Text("麻辣小龙虾（大）"),

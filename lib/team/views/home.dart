@@ -57,10 +57,7 @@ class TeamHome extends StatelessWidget {
         SizedBox(
           width: 100,
           height: 80,
-          child: Image.network(
-            'https://img2.baidu.com/it/u=2565461193,1307648114&fm=26&fmt=auto&gp=0.jpg',
-            fit: BoxFit.fill,
-          )
+          child: Image.asset('/image/haidilao.png',fit: BoxFit.fill,)
         ),
         Expanded(
           child: Container(
@@ -92,9 +89,7 @@ class TeamHome extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.network('https://hbimg.huabanimg.com/cccaacd4138204a23fb036d2fc09ab9995381d39a695d-CfgljG_fw236/format/webp',
-          width: 50, height: 50
-          ),
+          Image.asset('/image/xia.png',width: 50, height: 50),
           Text("${index}辣小龙虾（大）"),
           Text('\$280')
         ],
@@ -168,6 +163,7 @@ class TeamHome extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16, horizontal: 0) ,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
             Checkbox(value: true, onChanged: (bool){}),
             Baseline(

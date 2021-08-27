@@ -58,7 +58,7 @@ class SkuDetail extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
       width: 50,
       height: 50,
-      child: Image.network('https://hbimg.huabanimg.com/f10389ce0674a8e336842a8b6468dd95fd7d4c101cd66d-6q1bs3_fw236/format/webp', fit: BoxFit.fill),
+      child: Image.asset('/image/taocan.png', fit: BoxFit.fill),
     );
     var title = Expanded(
       child: Column(
@@ -98,7 +98,7 @@ class SkuDetail extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
         width: 180,
         height: 80,
-        child: Image.network('https://hbimg.huabanimg.com/f10389ce0674a8e336842a8b6468dd95fd7d4c101cd66d-6q1bs3_fw236/format/webp', fit: BoxFit.fill),
+        child: Image.asset('/image/taocan.png', fit: BoxFit.fill),
       );
     };
     return dataList.map<Widget>((item) => getItem(item)).toList();
