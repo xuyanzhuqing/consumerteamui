@@ -78,7 +78,7 @@ class TeamHome extends StatelessWidget {
         child: Column(
           children: [
             renderMenuTitle(context, index),
-            renderMenuBody()
+            renderMenuBody(context)
           ],
         ),
       ),
@@ -101,7 +101,7 @@ class TeamHome extends StatelessWidget {
       ),
     );
   }
-  Widget renderMenuBody() {
+  Widget renderMenuBody(context) {
     return Row(
         children: [
           Expanded(
@@ -137,9 +137,15 @@ class TeamHome extends StatelessWidget {
             )
           ),
           Container(
-            height: 100,
+            height: 70,
+            margin: EdgeInsets.only(right: 8),
             alignment: Alignment.bottomCenter,
-            child: Icon(Autoicons.shop, color: Colors.red, size: 35),
+            child: IconButton(
+              onPressed: (){
+                Navigator.pushNamed(context, 'ShoppingCart');
+              },
+              icon: Icon(Autoicons.shop, color: Colors.red, size: 40),
+            ),
           )
         ],
     );

@@ -7,6 +7,7 @@ class SkuDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: new Text("商品名细", style: TextStyle(color: Colors.white)),
@@ -18,12 +19,38 @@ class SkuDetail extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [renderHeader(), renderCatetoryDesc(), renderTextDesc(), renderFooter()],
-        ),
-      )
+      body: renderNestedScrollView(context)
+    );
+  }
+  Widget renderNestedScrollView(context) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+            pinned: false, // 头部是否固定
+            toolbarHeight: 215,
+            automaticallyImplyLeading: false, // 隐藏返回图标
+            flexibleSpace: Container(
+              decoration: BoxDecoration(color: Colors.white),
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  renderHeader(), renderCatetoryDesc(), 
+                ],
+              ),
+            )
+          ),
+          SliverPadding(padding: EdgeInsets.only(top: 10)),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [renderTextDesc(), renderFooter()],
+                ),
+              )]
+            )
+          ),
+      ],
     );
   }
   Widget renderHeader() {
@@ -68,6 +95,7 @@ class SkuDetail extends StatelessWidget {
   List<Widget> renderImgList(dataList) {
     Widget getItem(imgItem) {
       return Container(
+        margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
         width: 180,
         height: 80,
         child: Image.network('https://hbimg.huabanimg.com/f10389ce0674a8e336842a8b6468dd95fd7d4c101cd66d-6q1bs3_fw236/format/webp', fit: BoxFit.fill),
@@ -84,10 +112,9 @@ class SkuDetail extends StatelessWidget {
           child: Text('分类： 川菜 —> 火锅'),
         ),
         SingleChildScrollView(
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: renderImgList([1,2,3]),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: renderImgList([1,2,3, 5,6,7,8,9,1,1,1,1]),
           ),
         )
       ],
@@ -115,7 +142,7 @@ class SkuDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('规格：800g，2-3人食用', textAlign: TextAlign.start),
+                  Text('规格：800g，2-3人食用'),
                   Text('可开团时间：2021-8-1  -   2021-12-21'),
                   Text('送货方式： 送至团长处 '),
                   Text('成团额：500\$'),
