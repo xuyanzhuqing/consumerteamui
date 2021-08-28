@@ -27,8 +27,5 @@ void main() async {
   print(initialRoute);
   print('--------------');
   runApp(App(
-    key: Key(APP_KEY),
-    initialRoute: initialRoute,
-    role: roleType as Roles
-  ));
+      key: Key(APP_KEY), initialRoute: initialRoute, role: roleType as Roles));
 }

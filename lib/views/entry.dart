@@ -20,25 +20,21 @@ class Entry extends StatelessWidget {
                   toEntry(context, Roles.consumer, '注册用户'),
                   toEntry(context, Roles.team, '注册团长'),
                   Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: [
-                          TextSpan(text: '我已有账号，直接'),
-                          TextSpan(
-                            text: '登陆',
-                            style: TextStyle(
-                              color: Colors.blueAccent
-                            ),
-                            recognizer: TapGestureRecognizer()..onTap = () {
-                              Navigator.of(context).pushNamed('Login');
-                            },
-                          )
-                        ]
-                      )
-                    )
-                  )
+                      padding: EdgeInsets.all(16.0),
+                      child: RichText(
+                          text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: [
+                            TextSpan(text: '我已有账号，直接'),
+                            TextSpan(
+                              text: '登陆',
+                              style: TextStyle(color: Colors.blueAccent),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushNamed('Login');
+                                },
+                            )
+                          ])))
                 ],
               );
             },
@@ -48,8 +44,7 @@ class Entry extends StatelessWidget {
     );
   }
 
-  Widget toEntry(
-      BuildContext context, Roles roleType, String desc) {
+  Widget toEntry(BuildContext context, Roles roleType, String desc) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
@@ -78,7 +73,8 @@ class Entry extends StatelessWidget {
         globalInfo.setRole(roleType);
         print(context.read<GlobalInfo>().routes.keys);
         // 传入角色类型
-        Navigator.of(context).pushNamed('Register', arguments: { roleType: roleType });
+        Navigator.of(context)
+            .pushNamed('Register', arguments: {roleType: roleType});
       },
     );
   }
