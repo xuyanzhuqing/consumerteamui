@@ -1,5 +1,6 @@
 // 商品 list 组建
 import 'package:flutter/material.dart';
+import 'package:consumerteamui/utils/my_url_launcher.dart';
 
 class GoodItem {
   static String imgBaseUrl = 'https://meishi.0513.org';
@@ -40,20 +41,28 @@ class GoodItem {
             ),
           )),
           Container(
-              width: 100.0,
-              child: Column(
-                children: [
-                  userImage('/doupload/block/2018-06/1530093681_1516.jpg'),
-                  Text('michael', style: TextStyle(color: Colors.grey)),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                    ),
-                    child: Text('联系团长'),
-                    onPressed: () {},
-                  )
-                ],
-              ))
+            width: 100.0,
+            child: Column(
+              children: [
+                userImage('/doupload/block/2018-06/1530093681_1516.jpg'),
+                Text('michael', style: TextStyle(color: Colors.grey)),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  child: Text('联系团长'),
+                  onPressed: () {
+                    MyUrlLauncher.launchPhone('17721452600',
+                        countryCode: '+86');
+                    // MyUrlLauncher.launchEmail('962275976@qq.com', {
+                    //   'subject': 'Example Subject & Symbols are allowed!',
+                    //   'body': '<p>this is a P for tes_t</p>'
+                    // });
+                  },
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
