@@ -12,24 +12,33 @@ class Register extends StatefulWidget {
 class _Register extends State<Register> {
   GlobalKey formKey= new GlobalKey<FormState>();
 
+  bool selectRoleType = false;
+
   @override
   Widget build(BuildContext context) {
+    var title = ModalRoute.of(context)?.settings.arguments;
+    print(title);
+
     List<MyFormItem> items = [
-      MyFormItem<String>(prop: "name", initalValue: "", label: "姓名", which: Which.char, rules: MultiValidator([
-        RequiredValidator(errorText: '用户密码不能为空'),
-        MinLengthValidator(8, errorText: '最短6位'),
+      MyFormItem<String>(prop: "name", label: "用户名/手机号", which: Which.char, rules: MultiValidator([
+        RequiredValidator(errorText: '用户名/手机号不能为空'),
         MaxLengthValidator(16, errorText: '最长16'),
       ])),
-      MyFormItem<String>(prop: "age", initalValue: '18', label: "年龄", which: Which.char),
-      // MyFormItem(prop: "btn", label: "取消", which: Which.button, buttonStyle: MyButtonStyle.outline),
+      MyFormItem<String>(prop: "password", label: "密码", which: Which.char),
+      MyFormItem<String>(prop: "confirmPass", label: "确认密码", which: Which.char),
     ];
     return MyForm(
       formKey: formKey,
-      title: "注册",
+      title: "团长注册",
       items: items,
       onFiledChange: onFiledChange,
       onSubmit: onSubmit,
-      onCancel: onCancel
+      onCancel: onCancel,
+      submitLabel: '注册',
+      hasCancelBtn: false,
+      tailBtns: [
+        MyFormItem(prop: "reset", label: "重置", which: Which.button, buttonStyle: MyButtonStyle.outline),
+      ],
     );
   }
 
@@ -40,6 +49,7 @@ class _Register extends State<Register> {
 
   void onSubmit (model) {
     print(model.toString());
+    Navigator.of(context).pushNamed('Login');
   }
 
   void onCancel (model) {

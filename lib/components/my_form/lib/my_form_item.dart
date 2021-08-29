@@ -9,7 +9,8 @@ typedef VoidFunc = void Function(MyFormItemInner item);
 
 enum Which {
   char,
-  button
+  button,
+  select
 }
 
 enum MyButtonStyle {

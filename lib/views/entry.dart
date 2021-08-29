@@ -1,8 +1,9 @@
 import 'package:consumerteamui/store/globalInfo.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:consumerteamui/enum/biz.dart' show Roles;
-import 'package:consumerteamui/views/login.dart';
+import 'dart:ui';
 
 class Entry extends StatelessWidget {
   @override
@@ -16,20 +17,34 @@ class Entry extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Text(S.of(context).sys_warning),
-                  toEntry(context, Roles.team, '我是团长', 'TeamHome'),
-                  toEntry(context, Roles.consumer, '我是消费者', 'ConsumerHome')
+                  toEntry(context, Roles.consumer, '注册用户'),
+                  toEntry(context, Roles.team, '注册团长'),
+                  Container(
+                      padding: EdgeInsets.all(16.0),
+                      child: RichText(
+                          text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: [
+                            TextSpan(text: '我已有账号，直接'),
+                            TextSpan(
+                              text: '登陆',
+                              style: TextStyle(color: Colors.blueAccent),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushNamed('Login');
+                                },
+                            )
+                          ])))
                 ],
               );
             },
           ),
         );
-        // return Login();
       },
     );
   }
 
-  Widget toEntry(
-      BuildContext context, Roles roleType, String desc, String route) {
+  Widget toEntry(BuildContext context, Roles roleType, String desc) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
@@ -43,7 +58,7 @@ class Entry extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            color: Theme.of(context).colorScheme.primaryVariant,
+            color: Theme.of(context).colorScheme.primary,
             boxShadow: [
               //卡片阴影
               BoxShadow(
@@ -57,7 +72,9 @@ class Entry extends StatelessWidget {
         GlobalInfo globalInfo = Provider.of<GlobalInfo>(context, listen: false);
         globalInfo.setRole(roleType);
         print(context.read<GlobalInfo>().routes.keys);
-        Navigator.of(context).pushNamed(route);
+        // 传入角色类型
+        Navigator.of(context)
+            .pushNamed('Register', arguments: {roleType: roleType});
       },
     );
   }

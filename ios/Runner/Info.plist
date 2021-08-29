@@ -47,7 +47,10 @@
 		<string>en</string>
 		<string>zh</string>
 	</array>
-	<!-- webview -->
-	
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>https</string>
+	<string>http</string>
+	</array>
 </dict>
 </plist>
