@@ -71,7 +71,6 @@ class GoodItem {
   static FadeInImage bannerImage(String path) {
     return FadeInImage.assetNetwork(
       placeholder: 'assets/images/icons8-loading-circle.gif',
-      placeholderScale: 0.5,
       image: "$imgBaseUrl/$path",
       width: 100.0,
     );

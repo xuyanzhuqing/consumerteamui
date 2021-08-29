@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // }
 
 import 'package:consumerteamui/consumer/views/home/home.dart';
-import 'package:consumerteamui/consumer/views/info/info.dart';
+import 'package:consumerteamui/consumer/views/about/about.dart';
 import 'package:consumerteamui/consumer/views/shopping/shopping.dart';
 import 'package:consumerteamui/consumer/views/product/product.dart';
 
@@ -28,7 +28,7 @@ class _ConsumerHomeState extends State<ConsumerHome> {
     Homepage(),
     Product(),
     Shopping(),
-    Info(),
+    About(),
   ];
   @override
   Widget build(BuildContext context) {
