@@ -26,8 +26,8 @@ class SkuDetail extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-            pinned: false, // 头部是否固定
-            toolbarHeight: 215,
+            pinned: true, // 头部是否固定
+            toolbarHeight: 223,
             automaticallyImplyLeading: false, // 隐藏返回图标
             flexibleSpace: Container(
               decoration: BoxDecoration(color: Colors.white),
@@ -58,7 +58,7 @@ class SkuDetail extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
       width: 50,
       height: 50,
-      child: Image.asset('/image/taocan.png', fit: BoxFit.fill),
+      child: Image.asset('assets/image/taocan.png', fit: BoxFit.fill),
     );
     var title = Expanded(
       child: Column(
@@ -98,7 +98,7 @@ class SkuDetail extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
         width: 180,
         height: 80,
-        child: Image.asset('/image/taocan.png', fit: BoxFit.fill),
+        child: Image.asset('assets/image/taocan.png', fit: BoxFit.fill),
       );
     };
     return dataList.map<Widget>((item) => getItem(item)).toList();

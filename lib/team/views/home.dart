@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,22 +18,11 @@ class TeamHomeState extends State<TeamHome> {
   //设置搜索防抖
   Duration durationTime = Duration(milliseconds: 500);
   Timer timer = new Timer(Duration.zero, () =>{});
-
+  FocusNode _focusNode = FocusNode();
+  TextEditingController _searchTextController = TextEditingController();
   @override
   void initState() {
-    for (var i = 0; i < 10; i++) {
-      skuList.add(
-        SkuModel(
-        "小龙虾${i}",
-         220.0 + i,
-        "规格：800g，2-3人食用",
-        "可开团时间：2021-8-1  -   2021-12-21",
-        "送货方式：送至团长处 ",
-        "成团额：500\$",
-        "运费：1000\$ 免费配送，低于1000\$支付15\$",
-        "准备时间：24小时"
-      ));
-    }
+    this.getAndSetSkuList();
     super.initState();
   }
   @override
@@ -44,13 +34,42 @@ class TeamHomeState extends State<TeamHome> {
         backgroundColor: Color(0xFF02A7F0),
         leading: new IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+          },
         ),
       ),
-      body: renderNestedScrollView(context)
+      body: GestureDetector(
+        child: renderNestedScrollView(context),
+        behavior: HitTestBehavior.translucent,
+        onTap: (){
+          // FocusScope.of(context).requestFocus(_focusNode);
+          _focusNode.unfocus();
+        },
+      )
     );
   }
-
+  void getAndSetSkuList(){
+    final num = new Random().nextInt(3);
+    print(num);
+    List<String> tList = ['小龙虾', '大龙虾', '老龙虾'];
+    List<SkuModel> list = [];
+     for (var i = 0; i < 10; i++) {
+      list.add(
+        SkuModel(
+        "${tList[num]}${i}",
+         220.0 + i,
+        "规格：800g，2-3人食用",
+        "可开团时间：2021-8-1  -   2021-12-21",
+        "送货方式：送至团长处 ",
+        "成团额：500\$",
+        "运费：1000\$ 免费配送，低于1000\$支付15\$",
+        "准备时间：24小时"
+      ));
+    }
+    setState(() {
+      skuList = list;
+    });
+  }
   Widget renderNestedScrollView(context) {
     return NestedScrollView(
       headerSliverBuilder: (BuildContext bContext, bool innerBoxIsScrolled) {
@@ -87,11 +106,11 @@ class TeamHomeState extends State<TeamHome> {
         SizedBox(
           width: 100,
           height: 80,
-          child: Image.asset('/image/haidilao.png',fit: BoxFit.fill,)
+          child: Image.asset('assets/image/haidilao.png',fit: BoxFit.fill,)
         ),
         Expanded(
           child: Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+            margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: renderBranchStoreSelect(context),
           )
         )
@@ -120,8 +139,8 @@ class TeamHomeState extends State<TeamHome> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('/image/xia.png',width: 50, height: 50),
-          Text(item.name),
+          Image.asset('assets/image/xia.png',width: 50, height: 50),
+          Expanded(child: Container(child: Text(item.name), alignment: Alignment.center)),
           Text(item.price.toString())
         ],
       ),
@@ -239,8 +258,8 @@ class TeamHomeState extends State<TeamHome> {
         setState(() {
            branchStoreValue = val!;
            showLoading(context, '加载中');
-           Timer(Duration(seconds: 3), ()=> {
-             Navigator.of(context).pop(1)
+           Timer(Duration(milliseconds: 500), ()=> {
+             Navigator.of(context).pop(1), getAndSetSkuList()
            });
         });
       },
@@ -249,39 +268,38 @@ class TeamHomeState extends State<TeamHome> {
   Widget renderCheckboxTypes () {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16, horizontal: 0) ,
-      child: Row(
+      child: Flex(
+        direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-            Checkbox(value: distributionModes[0], onChanged: (bool){
+          SizedBox(
+            width: 28,
+            child:  Checkbox(value: distributionModes[0], onChanged: (bool){
               setState(() {
                 distributionModes[0] = bool!;
               });
             }),
-            Baseline(
-              baseline: 12,
-              baselineType: TextBaseline.alphabetic,
-              child: Text('团长处提货'),
-            ),
-            Checkbox(value: distributionModes[1], onChanged: (bool){
-               setState(() {
+          ),
+          Text('团长处提货'),
+          SizedBox(
+            width: 28,
+            child:   Checkbox(value: distributionModes[1], onChanged: (bool){
+              setState(() {
                 distributionModes[1] = bool!;
               });
             }),
-            Baseline(
-              baseline: 12,
-              baselineType: TextBaseline.alphabetic,
-              child: Text('门店直送'),
-            ),
-            Checkbox(value: distributionModes[2], onChanged: (bool){
-               setState(() {
+          ),
+          Text('门店直送'),
+          SizedBox(
+            width: 28,
+            child:  Checkbox(value: distributionModes[2], onChanged: (bool){
+              setState(() {
                 distributionModes[2] = bool!;
               });
             }),
-            Baseline(
-              baseline: 12,
-              baselineType: TextBaseline.alphabetic,
-              child: Text('到店自取'),
-            ),
+          ),
+          Text('到店自取'),
         ]
       )
     );
@@ -295,6 +313,8 @@ class TeamHomeState extends State<TeamHome> {
         autofocus: false,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
+        controller: _searchTextController,
+        focusNode: _focusNode,
         onChanged: (str){
           if( timer != null) {
            timer.cancel();
@@ -321,9 +341,18 @@ class TeamHomeState extends State<TeamHome> {
           hintText: "请输入",
           hintStyle: TextStyle(color: Colors.grey, fontSize: 14, height: 1),
           prefixIcon: Icon(Icons.search, size: 16),
-          suffixIcon: Icon(Icons.close, size: 16),
+          suffixIcon: IconButton(icon: Icon(Icons.close, size: 16), onPressed: (){
+            clearSearchText();
+            _focusNode.unfocus();
+          }),
         ),
       ),
     );
+  }
+   void clearSearchText() {
+    _searchTextController.text = '';
+    setState(() {
+      searchText = '';
+    });
   }
 }
