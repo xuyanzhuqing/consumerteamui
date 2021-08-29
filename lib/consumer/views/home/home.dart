@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:matcher/matcher.dart';
+
+import '../adapt.dart';
 
 class Homepage extends StatefulWidget {
   final bool isHead;
@@ -18,7 +22,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 0, left: 4, right: 4, bottom: 8),
+      // padding: const EdgeInsets.only(top: 0, left: 4, right: 4, bottom: 8),
       child: Column(children: <Widget>[
         Notice(),
         UserCon(),
@@ -135,7 +139,7 @@ class HeadCon extends StatelessWidget {
             ItemBotton(
               Txt: "待支付",
               IconData: IconData(0xe617, fontFamily: 'Albb'),
-              goUrl: "Receivingpage",
+              goUrl: "ReceivinPage",
             ),
             ItemBotton(
               Txt: "历史记录",
@@ -157,6 +161,7 @@ class Notice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.all(5.0),
       child: new InkWell(
           onTap: () {
@@ -172,7 +177,7 @@ class Notice extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "通知消息通知消息通知消息通知消息通知消息通知消息",
+                  "通知消息通知消息通知消息通知消息通消息",
                   style: TextStyle(color: Colors.brown, fontSize: 14),
                 ),
               )
@@ -185,30 +190,235 @@ class Notice extends StatelessWidget {
 class ListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          color: Colors.blue,
-          height: 50,
-          width: 406,
-        ),
-      ],
+    return Container(
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.2,
+            height: 450,
+            child: LeftView(),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: 450,
+            child: RightView(),
+          )
+        ],
+      ),
     );
   }
 }
 
-class LeftView extends StatelessWidget {
+class LeftView extends StatefulWidget {
+  LeftView({Key? key}) : super(key: key);
+
+  @override
+  _LeftViewState createState() => _LeftViewState();
+}
+
+class _LeftViewState extends State<LeftView> {
+  final state = HomeState();
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: <Widget>[
-        ListTile(
-          title: Text("你好这是一个列表"),
-        ),
-        ListTile(
-          title: Text("你好这是一个列表"),
-        ),
-      ],
-    );
+        children:
+            new List<Widget>.from(state.leftItemList.asMap().keys.map((i) {
+      return new InkWell(
+          onTap: () {
+            print("NoticeNoticeNotice $i");
+            setState(() {
+              state.leftItemList.forEach((item) {
+                item.isSelected = false;
+              });
+              state.leftItemList[i].isSelected = true;
+            });
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: 50,
+            color: state.leftItemList[i].isSelected
+                ? Colors.red
+                : Colors.transparent,
+            child: Text(
+              state.leftItemList[i].title,
+            ),
+          ));
+    })).toList());
   }
+}
+
+class RightView extends StatefulWidget {
+  RightView({Key? key}) : super(key: key);
+
+  @override
+  _RightViewState createState() => _RightViewState();
+}
+
+class _RightViewState extends State<RightView> {
+  final state2 = HomeState2();
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+        padding: EdgeInsets.only(
+          left: 10,
+        ),
+        children:
+            new List<Widget>.from(state2.rightItemList.asMap().keys.map((i) {
+          return Container(
+            margin: EdgeInsets.only(bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    width: 90.0,
+                    height: 90.0,
+                    child: Image.network(state2.rightItemList[i].imgUrl)),
+                Container(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
+                            state2.rightItemList[i].title,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "sdfsdfsdfdsdsfddfdsdsf",
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "sdfsdfsdfdsdsfddfdsdsf",
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "sdfsdfsdfdsdsfddfdsdsf",
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "sdfsdfsdfdsdsfddfdsdsf",
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ))
+              ],
+            ),
+          );
+        })).toList());
+  }
+}
+
+class HomeState {
+  ///左边导航栏
+  late List<HomeLeftTabItem> leftItemList;
+  HomeState() {
+    leftItemList = [
+      HomeLeftTabItem(
+        title: 'Tab1',
+        isSelected: true,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab2',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab3',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab4',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab5',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab6',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab7',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab8',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab9',
+        isSelected: false,
+      ),
+      HomeLeftTabItem(
+        title: 'Tab10',
+        isSelected: false,
+      ),
+    ];
+  }
+}
+
+class HomeState2 {
+  ///左边导航栏
+  late List<HomeRightItem> rightItemList;
+  HomeState2() {
+    rightItemList = [
+      HomeRightItem(
+        title: "测试1",
+        imgUrl:
+            "https://api.imvideo.app/imapi-node/api/v1/toolkit/langplay_img/343ad6b2bba4aa7aad9955b39d64c455.jpg%3Fiopcmd%3Dthumbnail%26type%3D13%26width%3D96%26height%3D96",
+        goUrl: "测试1",
+      ),
+      HomeRightItem(
+        title: "测试1",
+        imgUrl:
+            "https://api.imvideo.app/imapi-node/api/v1/toolkit/langplay_img/343ad6b2bba4aa7aad9955b39d64c455.jpg%3Fiopcmd%3Dthumbnail%26type%3D13%26width%3D96%26height%3D96",
+        goUrl: "测试1",
+      ),
+      HomeRightItem(
+        title: "测试1",
+        imgUrl:
+            "https://api.imvideo.app/imapi-node/api/v1/toolkit/langplay_img/343ad6b2bba4aa7aad9955b39d64c455.jpg%3Fiopcmd%3Dthumbnail%26type%3D13%26width%3D96%26height%3D96",
+        goUrl: "测试1",
+      ),
+    ];
+  }
+}
+
+class HomeLeftTabItem {
+  ///按钮名称
+  String title;
+
+  ///是否被选中
+  bool isSelected;
+  HomeLeftTabItem({
+    required this.title,
+    this.isSelected = false,
+  });
+}
+
+class HomeRightItem {
+  ///按钮名称
+  String title;
+  //图片
+  String imgUrl;
+  //路由
+  String goUrl;
+
+  ///是否被选中
+  HomeRightItem({
+    required this.title,
+    required this.imgUrl,
+    required this.goUrl,
+  });
 }

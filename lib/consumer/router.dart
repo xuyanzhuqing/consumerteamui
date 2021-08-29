@@ -12,7 +12,7 @@ import 'package:consumerteamui/consumer/views/info/lib/paid.dart'; //待支付�
 Map<String, Widget Function(BuildContext)> consumerRoute = {
   "/": (context) => Entry(),
   "TakePage": (context) => TakePage(),
-  "ReceivinPage": (context) => ReceivingPage(),
+  "ReceivingPage": (context) => ReceivingPage(),
   "SendoutPage": (context) => SendoutPage(),
   "PaidPage": (context) => PaidPage(),
 };
