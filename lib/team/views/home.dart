@@ -1,10 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:consumerteamui/font/autoicons.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'SkuModel.dart';
+class TeamHome extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => TeamHomeState();
+}
+class TeamHomeState extends State<TeamHome> {
+  var branchStoreValue = null; // 分店
+  List<bool> distributionModes = [false, false, false]; // 送货方式
+  List<SkuModel> skuList = [];
+  String searchText = '';
+  //设置搜索防抖
+  Duration durationTime = Duration(milliseconds: 500);
+  Timer timer = new Timer(Duration.zero, () =>{});
 
-class TeamHome extends StatelessWidget {
+  @override
+  void initState() {
+    for (var i = 0; i < 10; i++) {
+      skuList.add(
+        SkuModel(
+        "小龙虾${i}",
+         220.0 + i,
+        "规格：800g，2-3人食用",
+        "可开团时间：2021-8-1  -   2021-12-21",
+        "送货方式：送至团长处 ",
+        "成团额：500\$",
+        "运费：1000\$ 免费配送，低于1000\$支付15\$",
+        "准备时间：24小时"
+      ));
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +53,7 @@ class TeamHome extends StatelessWidget {
 
   Widget renderNestedScrollView(context) {
     return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+      headerSliverBuilder: (BuildContext bContext, bool innerBoxIsScrolled) {
         return <Widget>[SliverAppBar(
           pinned: true, // 头部是否固定
           toolbarHeight: 232,
@@ -35,7 +65,7 @@ class TeamHome extends StatelessWidget {
               children: [
                 renderSearchInput(),
                 renderCheckboxTypes(),
-                renderConditions(),
+                renderConditions(context),
               ],
             ),
           )
@@ -43,7 +73,7 @@ class TeamHome extends StatelessWidget {
       },
       body: new ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: 10,
+        itemCount: skuList.length,
         itemBuilder: (BuildContext ctxt, int index) {
           return renderMenuItem(context, index);
         },
@@ -51,7 +81,7 @@ class TeamHome extends StatelessWidget {
     );
   }
 
-  Widget renderConditions() {
+  Widget renderConditions(context) {
     return Row(
       children: [
         SizedBox(
@@ -62,7 +92,7 @@ class TeamHome extends StatelessWidget {
         Expanded(
           child: Container(
             margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-            child: renderBranchStoreSelect(),
+            child: renderBranchStoreSelect(context),
           )
         )
       ],
@@ -75,13 +105,14 @@ class TeamHome extends StatelessWidget {
         child: Column(
           children: [
             renderMenuTitle(context, index),
-            renderMenuBody(context)
+            renderMenuBody(context, index)
           ],
         ),
       ),
     );
   }
   Widget renderMenuTitle(context, index) {
+     SkuModel item = skuList[index];
     return GestureDetector(
       onTap: () => {
         Navigator.pushNamed(context, 'SkuDetail')
@@ -90,13 +121,14 @@ class TeamHome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset('/image/xia.png',width: 50, height: 50),
-          Text("${index}辣小龙虾（大）"),
-          Text('\$280')
+          Text(item.name),
+          Text(item.price.toString())
         ],
       ),
     );
   }
-  Widget renderMenuBody(context) {
+  Widget renderMenuBody(context, index) {
+    SkuModel item = skuList[index];
     return Row(
         children: [
           Expanded(
@@ -105,27 +137,27 @@ class TeamHome extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('规格: 800g, 2-3人食用', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name1, style: TextStyle(fontSize: 12)),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('可开团时间：2021-8-1  -   2021-12-21', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name2, style: TextStyle(fontSize: 12)),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('送货方式： 送至团长处', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name3, style: TextStyle(fontSize: 12)),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('成团额：500\$', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name4, style: TextStyle(fontSize: 12)),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('运费：1000\$ 免费配送，低于1000\$支付15\$', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name5, style: TextStyle(fontSize: 12)),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('送准备时间：24小时', style: TextStyle(fontSize: 12)),
+                    child: Text(item.name6, style: TextStyle(fontSize: 12)),
                   ),
                 ],
               ),
@@ -145,17 +177,72 @@ class TeamHome extends StatelessWidget {
         ],
     );
   }
-  Widget renderBranchStoreSelect() {
+  void showLoading(BuildContext context, String text) {
+  text = text == null ?"Loading..." : text;
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(3.0),
+                boxShadow: [
+                  //阴影
+                  BoxShadow(
+                    color: Colors.black12,
+                    //offset: Offset(2.0,2.0),
+                    blurRadius: 10.0,
+                  )
+                ]),
+            padding: EdgeInsets.all(16),
+            margin: EdgeInsets.all(16),
+            constraints: BoxConstraints(minHeight: 120, minWidth: 180),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    text,
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+  }
+  Widget renderBranchStoreSelect(context) {
     return DropdownButton(
-      value: '请选择分店名称',
-       underline: Container(height: 0),
+      value: branchStoreValue,
+      dropdownColor: Colors.white,
+      isExpanded: true,
+      hint: Text('请选择分店名称'),
+      underline: Container(height: 0),
       items: [
-        DropdownMenuItem(child: Text('请选择分店名称'),value: '请选择分店名称'),
-        DropdownMenuItem(child: Text('语文'),value: '语文'),
-        DropdownMenuItem(child: Text('数学'),value: '数学'),
-        DropdownMenuItem(child: Text('英语'),value: '英语'),
+        DropdownMenuItem(child: Text('海底捞-大学城店'),value: "1"),
+        DropdownMenuItem(child: Text('海底捞-新加坡总店'),value: "2"),
+        DropdownMenuItem(child: Text('迪士尼乐园店'),value: "3"),
       ],
-      onChanged: (value){
+      onChanged: (val){
+        setState(() {
+           branchStoreValue = val!;
+           showLoading(context, '加载中');
+           Timer(Duration(seconds: 3), ()=> {
+             Navigator.of(context).pop(1)
+           });
+        });
       },
     );
   }
@@ -165,21 +252,33 @@ class TeamHome extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-            Checkbox(value: true, onChanged: (bool){}),
+            Checkbox(value: distributionModes[0], onChanged: (bool){
+              setState(() {
+                distributionModes[0] = bool!;
+              });
+            }),
             Baseline(
-              baseline: 11,
+              baseline: 12,
               baselineType: TextBaseline.alphabetic,
               child: Text('团长处提货'),
             ),
-            Checkbox(value: true, onChanged: (bool){}),
+            Checkbox(value: distributionModes[1], onChanged: (bool){
+               setState(() {
+                distributionModes[1] = bool!;
+              });
+            }),
             Baseline(
-              baseline: 11,
+              baseline: 12,
               baselineType: TextBaseline.alphabetic,
               child: Text('门店直送'),
             ),
-            Checkbox(value: true, onChanged: (bool){}),
+            Checkbox(value: distributionModes[2], onChanged: (bool){
+               setState(() {
+                distributionModes[2] = bool!;
+              });
+            }),
             Baseline(
-              baseline: 11,
+              baseline: 12,
               baselineType: TextBaseline.alphabetic,
               child: Text('到店自取'),
             ),
@@ -196,6 +295,17 @@ class TeamHome extends StatelessWidget {
         autofocus: false,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
+        onChanged: (str){
+          if( timer != null) {
+           timer.cancel();
+          }
+          setState(() {
+            searchText = str;
+            timer = new Timer(durationTime, () {
+              print(str);
+            });
+          });
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           // focusedBorder: new OutlineInputBorder(  //有焦点时
