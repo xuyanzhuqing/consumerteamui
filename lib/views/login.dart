@@ -45,15 +45,15 @@ class _Login extends State<Login> {
     ];
 
     return MyForm(
-        formKey: formKey,
-        title: "登陆",
-        items: items,
-        onFiledChange: onFiledChange,
-        onSubmit: onSubmit,
-        submitLabel: '登陆',
-        cancelLabel: '注册',
-        onCancel: onCancel,
-        // hasCancelBtn: false
+      formKey: formKey,
+      title: "登陆",
+      items: items,
+      onFiledChange: onFiledChange,
+      onSubmit: onSubmit,
+      submitLabel: '登陆',
+      cancelLabel: '注册',
+      onCancel: onCancel,
+      // hasCancelBtn: false
     );
   }
 
@@ -70,9 +70,7 @@ class _Login extends State<Login> {
     // globalInfo.setRole(Roles.team);
     print(model.toString());
     Navigator.of(context).pushNamed('ConsumerHome');
-    SharedPreferences.setMockInitialValues({
-      "roleType": Roles.consumer
-    });
+    SharedPreferences.setMockInitialValues({"roleType": Roles.consumer});
   }
 
   void onCancel(model) {
