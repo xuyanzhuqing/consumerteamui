@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './orders/orders.dart';
 import './orders/head.dart';
+import './orders/sort.dart';
 import 'package:consumerteamui/components/loop_notice.dart';
 
 class Homepage extends StatefulWidget {
@@ -19,7 +20,8 @@ class _HomepageState extends State<Homepage> {
   get isHead => null;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
+      // SingleChildScrollView  垂直方向空间会超过屏幕视口高度.滚动
       // padding: const EdgeInsets.only(top: 0, left: 4, right: 4, bottom: 8),
       child: Column(children: <Widget>[
         LoopNotice(
@@ -28,6 +30,7 @@ class _HomepageState extends State<Homepage> {
         ),
         Orders(),
         // Head(),
+        Sort(),
       ]),
     );
   }
