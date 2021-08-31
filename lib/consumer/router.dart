@@ -7,7 +7,9 @@ import 'package:consumerteamui/consumer/views/home.dart';
 import 'package:consumerteamui/consumer/views/home/orders/take.dart'; //提货通知
 import 'package:consumerteamui/consumer/views/home/orders/receiving.dart'; //待收货订单
 import 'package:consumerteamui/consumer/views/home/orders/sendout.dart'; //待发货订单
-import 'package:consumerteamui/consumer/views/home/orders/paid.dart'; //待支付订单
+
+import 'package:consumerteamui/consumer/views/home/orders/paid/paid.dart'; //待支付订单
+import 'package:consumerteamui/consumer/views/home/orders/paid/paid-detail.dart'; //待支付订单
 
 Map<String, Widget Function(BuildContext)> consumerRoute = {
   "/": (context) => Entry(),
@@ -17,4 +19,5 @@ Map<String, Widget Function(BuildContext)> consumerRoute = {
   "ReceivingPage": (context) => ReceivingPage(),
   "SendoutPage": (context) => SendoutPage(),
   "PaidPage": (context) => PaidPage(),
+  "PaidDetail": (context) => PaidDetail(),
 };
