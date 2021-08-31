@@ -19,6 +19,11 @@ class Entry extends StatelessWidget {
                   // Text(S.of(context).sys_warning),
                   toEntry(context, Roles.consumer, '注册用户'),
                   toEntry(context, Roles.team, '注册团长'),
+                  MaterialButton(onPressed: (){
+                    GlobalInfo globalInfo = Provider.of<GlobalInfo>(context, listen: false);
+                    globalInfo.setRole(Roles.team);
+                    Navigator.pushNamed(context, 'TeamHome');
+                  }, child: Text('开团页面'),),
                   Container(
                       padding: EdgeInsets.all(16.0),
                       child: RichText(

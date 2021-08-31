@@ -106,7 +106,7 @@ class TeamHomeState extends State<TeamHome> {
         SizedBox(
           width: 100,
           height: 80,
-          child: Image.asset('assets/image/haidilao.png',fit: BoxFit.fill,)
+          child: Image.asset('assets/images/haidilao.png',fit: BoxFit.fill,)
         ),
         Expanded(
           child: Container(
@@ -139,7 +139,7 @@ class TeamHomeState extends State<TeamHome> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/image/xia.png',width: 50, height: 50),
+          Image.asset('assets/images/xia.png',width: 50, height: 50),
           Expanded(child: Container(child: Text(item.name), alignment: Alignment.center)),
           Text(item.price.toString())
         ],

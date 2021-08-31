@@ -9,7 +9,7 @@ import 'package:consumerteamui/team/views/shopping_cart.dart';
 Map<String, Widget Function(BuildContext)> teamRoutes = {
   "TeamHome": (context) => TeamHome(),
   "Register": (context) => Register(),
-  "/": (context) => Entry()
+  "/": (context) => Entry(),
   "SkuDetail": (context) => SkuDetail(),
   "ShoppingCart": (context) => ShoppingCart()
 };

@@ -97,7 +97,7 @@ class ShoppingCart extends StatelessWidget {
     var skuIcon = Container(
       width: 80,
       height: 60,
-      child: Image.asset('assets/image/taocan.png', fit: BoxFit.fill),
+      child: Image.asset('assets/images/taocan.png', fit: BoxFit.fill),
     );
     var skuName = Expanded(
       child: Container(
@@ -125,7 +125,7 @@ class ShoppingCart extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset('assets/image/xia.png',
+        Image.asset('assets/images/xia.png',
           width: 50, height: 50
           ),
         Text("麻辣小龙虾（大）"),
