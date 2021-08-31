@@ -14,7 +14,7 @@ Map<String, Widget Function(BuildContext)> consumerRoute = {
   "Register": (context) => Register(),
   "ConsumerHome": (context) => ConsumerHome(),
   "TakePage": (context) => TakePage(),
-  "ReceivinPage": (context) => ReceivingPage(),
+  "ReceivingPage": (context) => ReceivingPage(),
   "SendoutPage": (context) => SendoutPage(),
   "PaidPage": (context) => PaidPage(),
 };

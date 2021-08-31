@@ -1,15 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// class ConsumerHome extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('')),
-//     );
-//   }
-// }
-
 import 'package:consumerteamui/consumer/views/home/home.dart';
 import 'package:consumerteamui/consumer/views/about/about.dart';
 import 'package:consumerteamui/consumer/views/shopping/shopping.dart';
