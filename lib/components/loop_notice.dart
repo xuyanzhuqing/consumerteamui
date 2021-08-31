@@ -55,24 +55,26 @@ class _LoopNotice extends State<LoopNotice>
     controller.forward();
   }
 
+  void toggle() {
+    if (controller.isAnimating) {
+      controller.stop();
+    } else {
+      controller.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 42.0,
+      height: 38.0,
       padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
       child: new InkWell(
-        onTap: () {
-          if (controller.isAnimating) {
-            controller.stop();
-          } else {
-            controller.forward();
-          }
-        },
+        onTap: toggle,
         child: Row(
           children: [
             Icon(
               IconData(0xe61b, fontFamily: 'Albb'),
-              size: 25,
+              size: 20,
               color: Colors.brown,
             ),
             Expanded(
