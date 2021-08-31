@@ -36,6 +36,7 @@ dependencies:
   json_annotation: ^2.0.0
   shared_preferences: ^2.0.6
   form_field_validator: ^1.1.0
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +60,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/
-    - assets/image/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -100,5 +101,8 @@ flutter:
     - family: iconfont #指定一个字体名
       fonts:
         - asset: assets/fonts/iconfont/iconfont.ttf
+    - family: Albb #指定一个字体名
+      fonts:
+        - asset: lib/assets/icons/iconfont.ttf
 flutter_intl:
   enabled: true

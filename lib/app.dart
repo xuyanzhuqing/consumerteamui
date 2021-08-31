@@ -15,11 +15,13 @@ class App extends StatelessWidget {
   const App({
     required Key key,
     required this.initialRoute,
+    required this.role,
     this.isTestMode = false,
   }) : super(key: key);
 
   final bool isTestMode;
   final String initialRoute;
+  final Roles role;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class App extends StatelessWidget {
           platform: defaultTargetPlatform,
           isTestMode: isTestMode,
           locale: defaultLanguage,
-          role: Roles.nope
+          role: role
         )),
       ],
       child: Builder(builder: (context) {

@@ -76,3 +76,5 @@ class ConsumerLightTheme {
     button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
   );
 }
+
+class BFFF {}
