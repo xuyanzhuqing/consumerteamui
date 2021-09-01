@@ -22,13 +22,26 @@ class _ProductState extends State<Product> {
 
   void initData() {
     List<Navsitem> Nlist = [];
+    List<String> TextArr = [
+      "火锅",
+      "川菜",
+      "麻辣烫",
+      "水煮鱼",
+      "冒菜",
+      "火锅",
+      "川菜",
+      "麻辣烫",
+      "水煮鱼",
+      "冒菜"
+    ];
     for (var i = 0; i < 10; i++) {
       Nlist.add(Navsitem(
-        title: "切换${i}",
+        title: TextArr[i],
         goUrl: "3423423",
         isSelected: false,
+        icon: IconData(0xe61b, fontFamily: 'Albb'),
         imgUrl:
-            "https://api.imvideo.app/imapi-node/api/v1/toolkit/langplay_img/343ad6b2bba4aa7aad9955b39d64c455.jpg",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170830%2F76585c94bae14b91b4071b69b5ad9d89.jpeg",
       ));
     }
     setState(() {
@@ -164,8 +177,13 @@ class _ProductState extends State<Product> {
                           height: 50,
                           child: Column(
                             children: [
-                              Container(
-                                  width: 35, child: Image.network(v.imgUrl)),
+                              Icon(
+                                v.icon,
+                                size: 25,
+                                color: Colors.white,
+                              ),
+                              // Container(
+                              //     width: 35, child: Image.network(v.imgUrl)),
                               Text(v.title)
                             ],
                           ),
@@ -307,6 +325,7 @@ class Navsitem {
     required this.title,
     required this.imgUrl,
     required this.isSelected,
+    required this.icon,
     this.goUrl,
   });
   // 按钮名称
@@ -315,6 +334,8 @@ class Navsitem {
   String imgUrl;
   //是否选种
   bool isSelected;
+  //是否选种
+  dynamic icon;
   //跳转路由
   String? goUrl;
 }
