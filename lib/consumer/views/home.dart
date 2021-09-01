@@ -29,7 +29,7 @@ class _ConsumerHomeState extends State<ConsumerHome> {
         preferredSize: Size.fromHeight(0.0), //设置高度
         child: AppBar(
           automaticallyImplyLeading: true,
-          elevation: 2.0,
+          // elevation: 2.0,   //顶部下边框
           backgroundColor: Theme.of(context).colorScheme.primaryVariant,
           title: Text(""),
         ),

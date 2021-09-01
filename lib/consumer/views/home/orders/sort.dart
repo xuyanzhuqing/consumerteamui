@@ -118,51 +118,55 @@ class _SortState extends State<Sort> {
         },
         child: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10),
+          height: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  width: 100,
-                  child: Image.network(
-                      "https://api.imvideo.app/imapi-node/api/v1/toolkit/langplay_img/343ad6b2bba4aa7aad9955b39d64c455.jpg")),
+              Container(width: 100, child: Image.network(rightList[i].imgUrl)),
               Expanded(
-                  child: Container(
-                      padding: EdgeInsets.only(left: 5, right: 5),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              child: Text(rightList[i].title,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  )),
-                            ),
-                            Container(
-                              child: Text(rightList[i].desc,
-                                  textAlign: TextAlign.left,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.black,
-                                  )),
-                            ),
-                            Container(
-                              child: ButtonTheme(
-                                textTheme: ButtonTextTheme.primary,
-                                height: 12,
-                                child: RaisedButton(
-                                  child: Text('添加'),
-                                  onPressed: () {
-                                    print(i);
-                                  },
-                                ),
-                              ),
-                            )
-                          ])))
+                child: Stack(
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(rightList[i].title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              )),
+                        ),
+                        Container(
+                          child: Text(rightList[i].desc,
+                              textAlign: TextAlign.left,
+                              softWrap: true,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                              )),
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: -12,
+                      child: ButtonTheme(
+                        textTheme: ButtonTextTheme.primary,
+                        height: 12,
+                        child: RaisedButton(
+                          child: Text('添加'),
+                          onPressed: () {
+                            print(i);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ));
