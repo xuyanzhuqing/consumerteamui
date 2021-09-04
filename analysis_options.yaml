@@ -1,0 +1,4 @@
+# https://dart.cn/guides/language/analysis-options
+
+analyzer:
+  exclude: [iconBuild/**]
