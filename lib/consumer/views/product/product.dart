@@ -228,62 +228,68 @@ class _ProductState extends State<Product> {
   }
 
   Widget renderView(context, index) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Container(
-            width: 100,
-            child: Image.network(navsList[index].imgUrl),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return new InkWell(
+        onTap: () {
+          setState(() {
+            Navigator.of(context).pushNamed('DetailProduct');
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Container(
+                width: 100,
+                child: Image.network(navsList[index].imgUrl),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              Expanded(
+                child: Stack(
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 5),
-                      child: Text(navsList[index].title,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                          )),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Text(navsList[index].title,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              )),
+                        ),
+                        Container(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text("测试数据测试数据测试数据测试数据测试数据数据测试数据测试数据",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ))),
+                      ],
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: 5),
-                        child: Text("测试数据测试数据测试数据测试数据测试数据数据测试数据测试数据",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ))),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Container(
-            width: 50,
-            child: Column(
-              children: [
-                Icon(
-                  Icons.message,
-                  size: 35,
-                  color: Colors.brown,
+              ),
+              Container(
+                width: 50,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.message,
+                      size: 35,
+                      color: Colors.brown,
+                    ),
+                    Text("添加")
+                  ],
                 ),
-                Text("添加")
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 
   Widget renderSearchInput() {

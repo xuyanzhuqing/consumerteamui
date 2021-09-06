@@ -8,6 +8,8 @@ import 'package:consumerteamui/consumer/views/home/orders/take.dart'; //提货�
 import 'package:consumerteamui/consumer/views/home/orders/receiving.dart'; //待收货订单
 import 'package:consumerteamui/consumer/views/home/orders/sendout.dart'; //待发货订单
 
+import 'package:consumerteamui/consumer/views/product/lib/detail.dart'; //商品详情
+
 import 'package:consumerteamui/consumer/views/home/orders/paid/paid.dart'; //待支付订单
 import 'package:consumerteamui/consumer/views/home/orders/paid/paid-detail.dart'; //待支付订单
 
@@ -20,4 +22,5 @@ Map<String, Widget Function(BuildContext)> consumerRoute = {
   "SendoutPage": (context) => SendoutPage(),
   "PaidPage": (context) => PaidPage(),
   "PaidDetail": (context) => PaidDetail(),
+  "DetailProduct": (context) => DetailProduct(),
 };
